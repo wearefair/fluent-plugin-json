@@ -24,12 +24,12 @@ module Fluent
           parsed = JSON.parse(record[@key_name])
 
           # Insert parsed json into record
+          record.delete(@key_name)
           if !@hash_value_field.nil?
             record[@hash_value_field] = parsed
           else
             record.merge!(parsed)
           end
-          record.delete(@key_name)
 
           # Renew record time
           if !@renew_time_key.nil? and parsed.has_key? @renew_time_key
